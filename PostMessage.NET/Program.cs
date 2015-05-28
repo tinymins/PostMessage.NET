@@ -38,6 +38,7 @@ partial class Program {
         string[] list = args[1].Split(';');
         Key[] keylist = new Key[list.Length];
         for (int i = 0; i < list.Length; i++) {
+            if (list[i] == "") continue;
             string[] line = list[i].Split(',');
             if (line.Length != 3) {
                 Console.WriteLine("Error when parse keylist around \"" + list[i] + "\"!");
