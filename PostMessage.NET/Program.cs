@@ -13,8 +13,24 @@ partial class Program {
     static void Main(string[] args) {
         // args = new string[] { "31212", "54,2000,2000" };
         // Check arguments
-        if (args.Length != 2) {
+        if (args.Length == 1 && args[0] == "--help") {
+            Console.WriteLine("Usage:");
+            Console.WriteLine("    PostMessage.exe <PID> <keylist>");
+            Console.WriteLine("      <PID>     Target Process ID");
+            Console.WriteLine("      <keylist> The key list which will send to the target process.");
+            Console.WriteLine("");
+            Console.WriteLine("Ex:");
+            Console.WriteLine("    PostMessage.exe 13123 32,50,200;49,200,200");
+            Console.WriteLine("      This command will start a loop to send keylist to process 13123.");
+            Console.WriteLine("      The keylist loop is PRESS SPACE_KEY(32) for 50ms and then wait for");
+            Console.WriteLine("      200ms, and PRESS KEY_1(49) for 200ms and then wait for 200ms.");
+            Console.WriteLine("");
+            Console.WriteLine("Source code:");
+            Console.WriteLine("    https://github.com/tinymins/PostMessage.NET");
+            return;
+        } else if (args.Length != 2) {
             Console.WriteLine("Wrong numbers of arguments! 2 expected, got " + args.Length + "!");
+            Console.WriteLine("Command --help to view more information.");
             return;
         }
         // Parse keylist
@@ -25,6 +41,7 @@ partial class Program {
             string[] line = list[i].Split(',');
             if (line.Length != 3) {
                 Console.WriteLine("Error when parse keylist around \"" + list[i] + "\"!");
+                Console.WriteLine("Command --help to view more information.");
                 return;
             }
             keylist[i].nKCode = (IntPtr)int.Parse(line[0]);
