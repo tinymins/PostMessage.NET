@@ -6,7 +6,7 @@ using System.Diagnostics;
 namespace PostMessage.NET {
 partial class Program {
     struct Key {
-        public IntPtr nKCode;
+        public uint nKCode;
         public int nPress;
         public int nDelay;
     }
@@ -45,7 +45,7 @@ partial class Program {
                 Console.WriteLine("Command --help to view more information.");
                 return;
             }
-            keylist[i].nKCode = (IntPtr)int.Parse(line[0]);
+            keylist[i].nKCode = uint.Parse(line[0]);
             keylist[i].nPress = int.Parse(line[1]);
             keylist[i].nDelay = int.Parse(line[2]);
         }
@@ -55,11 +55,12 @@ partial class Program {
             IntPtr h = p.MainWindowHandle;
             while (true) {
                 foreach (Key key in keylist) {
-                    PostMessage(h, WM_KEYDOWN, key.nKCode, IntPtr.Zero);
+                    //SetForegroundWindow(h);
+                    PostMessage(h, WM_KEYDOWN, key.nKCode, 0);
                     Console.WriteLine("Process \"" + p.ProcessName + "\" post message KEYDOWN with key code " + key.nKCode + ".");
                     System.Threading.Thread.Sleep(key.nPress);
                     Console.WriteLine("Process \"" + p.ProcessName + "\" KEYPRESSING for " + key.nPress + "ms.");
-                    PostMessage(h, WM_KEYUP, key.nKCode, IntPtr.Zero);
+                    PostMessage(h, WM_KEYUP, key.nKCode, 0);
                     Console.WriteLine("Process \"" + p.ProcessName + "\" post message KEYUP with key code " + key.nKCode + ".");
                     System.Threading.Thread.Sleep(key.nDelay);
                     Console.WriteLine("Process \"" + p.ProcessName + "\" DELAYING for " + key.nDelay + "ms.");
