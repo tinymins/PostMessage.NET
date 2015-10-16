@@ -16,7 +16,7 @@ namespace PostMessage.NET.GUI
             InitializeComponent();
         }
 
-        private List<Process> Procs = new List<Process> { };
+        private List<Process> m_Procs = new List<Process> { };
         private void AddProcess(Process pJX3)
         {
             ProcessStartInfo psi = null;
@@ -27,7 +27,7 @@ namespace PostMessage.NET.GUI
             psi.WorkingDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
             psi.WindowStyle = ProcessWindowStyle.Hidden;
             Process p = Process.Start(psi);
-            Procs.Add(p);
+            m_Procs.Add(p);
         }
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -57,17 +57,35 @@ namespace PostMessage.NET.GUI
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            foreach (Process p in Procs)
+            foreach (Process p in m_Procs)
             {
                 if (p != null && !p.HasExited)
                 {
                     p.Kill();
                 }
             }
-            Procs.Clear();
+            m_Procs.Clear();
             btnStop.Enabled = false;
             btnStart.Enabled = true;
             btnStart.Text = "开始";
+        }
+
+        private int m_SpaceHeight, m_SpaceWidth, m_SplitHeight;
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            btnStart.Width = this.Width - m_SpaceWidth;
+            btnStart.Height = (this.Height - m_SpaceHeight) / 2;
+            btnStop.Width = this.Width - m_SpaceWidth;
+            btnStop.Height = (this.Height - m_SpaceHeight) / 2;
+            btnStop.Top = btnStart.Top + btnStart.Height + m_SplitHeight;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            m_SpaceWidth = this.Width - btnStart.Width;
+            m_SpaceHeight = this.Height - btnStart.Height - btnStop.Height;
+            m_SplitHeight = btnStop.Top - btnStart.Top - btnStart.Height;
         }
     }
 }
