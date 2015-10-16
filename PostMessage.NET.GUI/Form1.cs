@@ -20,7 +20,10 @@ namespace PostMessage.NET.GUI
         private void AddProcess(Process pJX3)
         {
             ProcessStartInfo psi = null;
-            psi = new ProcessStartInfo("PostMessage.exe", pJX3.Id.ToString() + " 82,50,50;49,50,50");
+            psi = new ProcessStartInfo("PostMessage.exe", pJX3.Id.ToString() + " "
+                + VK.F5.GetHashCode() + ",10,10;" + VK.F6.GetHashCode() + ",10,10;"
+                + VK.F7.GetHashCode() + ",10,10;" + VK.F8.GetHashCode() + ",10,10"
+            );
             psi.WorkingDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
             psi.WindowStyle = ProcessWindowStyle.Hidden;
             Process p = Process.Start(psi);
