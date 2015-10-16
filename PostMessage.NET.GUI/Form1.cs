@@ -30,6 +30,11 @@ namespace PostMessage.NET.GUI
         private void btnStart_Click(object sender, EventArgs e)
         {
             int nCount = 0;
+            foreach (Process pJX3 in Process.GetProcessesByName("JX3Client"))
+            {
+                nCount++;
+                AddProcess(pJX3);
+            }
             foreach (Process pJX3 in Process.GetProcessesByName("JX3ClientX64"))
             {
                 nCount++;
