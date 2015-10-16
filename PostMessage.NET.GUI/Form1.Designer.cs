@@ -34,9 +34,9 @@
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(13, 13);
+            this.btnStart.Location = new System.Drawing.Point(12, 13);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(216, 23);
+            this.btnStart.Size = new System.Drawing.Size(218, 45);
             this.btnStart.TabIndex = 0;
             this.btnStart.Text = "开始";
             this.btnStart.UseVisualStyleBackColor = true;
@@ -45,9 +45,9 @@
             // btnStop
             // 
             this.btnStop.Enabled = false;
-            this.btnStop.Location = new System.Drawing.Point(13, 43);
+            this.btnStop.Location = new System.Drawing.Point(12, 64);
             this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(216, 23);
+            this.btnStop.Size = new System.Drawing.Size(218, 45);
             this.btnStop.TabIndex = 1;
             this.btnStop.Text = "结束";
             this.btnStop.UseVisualStyleBackColor = true;
@@ -57,10 +57,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(241, 81);
+            this.ClientSize = new System.Drawing.Size(242, 121);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnStart);
-            this.MinimumSize = new System.Drawing.Size(250, 120);
+            this.MinimumSize = new System.Drawing.Size(250, 160);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "这是个标题";
