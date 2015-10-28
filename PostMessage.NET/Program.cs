@@ -55,7 +55,7 @@ partial class Program {
             IntPtr h = p.MainWindowHandle;
             while (true) {
                 foreach (Key key in keylist) {
-                    //SetForegroundWindow(h);
+                    PostMessage(h, WM_ACTIVATEAPP, 1, 0);
                     PostMessage(h, WM_KEYDOWN, key.nKCode, 0);
                     Console.WriteLine("Process \"" + p.ProcessName + "\" post message KEYDOWN with key code " + key.nKCode + ".");
                     System.Threading.Thread.Sleep(key.nPress);

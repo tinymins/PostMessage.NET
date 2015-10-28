@@ -6,8 +6,9 @@ using System.Text;
 namespace PostMessage.NET {
 partial class Program {
     [DllImport("user32.dll", EntryPoint = "PostMessage", CallingConvention = CallingConvention.Winapi)]
-    public static extern bool PostMessage(IntPtr hwnd, uint msg, uint wParam, uint lParam); 
-    const uint WM_KEYDOWN = 0x100;
+    public static extern bool PostMessage(IntPtr hwnd, uint msg, uint wParam, uint lParam);
+    const uint WM_ACTIVATEAPP = 0x001C;
+    const uint WM_KEYDOWN = 0x0100;
     const uint WM_KEYUP = 0x0101;
     enum VK : int {
         ///<summary>
