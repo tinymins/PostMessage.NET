@@ -4,8 +4,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostMessage.NET", "PostMessage.NET\PostMessage.NET.csproj", "{A1E569CA-DDDF-49AD-82F8-B8F30BF139AF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostMessage.NET.GUI", "PostMessage.NET.GUI\PostMessage.NET.GUI.csproj", "{DB0200E6-6B0A-496E-94FC-45A5151F429E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A1E569CA-DDDF-49AD-82F8-B8F30BF139AF} = {A1E569CA-DDDF-49AD-82F8-B8F30BF139AF}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostMessage.NET.WPF", "PostMessage.NET.WPF\PostMessage.NET.WPF.csproj", "{8F280B92-538E-4016-885B-B3CC392D8E64}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A1E569CA-DDDF-49AD-82F8-B8F30BF139AF} = {A1E569CA-DDDF-49AD-82F8-B8F30BF139AF}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
