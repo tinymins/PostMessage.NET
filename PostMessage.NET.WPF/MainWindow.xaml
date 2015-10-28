@@ -1,9 +1,30 @@
-﻿<Controls:MetroWindow x:Class="PostMessage.NET.WPF.MainWindow"
+﻿<Controls:MetroWindow
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        Title="MainWindow" Height="350" Width="525">
+        xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="PostMessage.NET.WPF.MainWindow"
+        Title="JX3 Auto Keypress" Height="300" Width="525" Loaded="MetroWindow_Loaded" WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <TextBlock Margin="20" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" FontFamily="Microsoft YaHei UI" LineHeight="22" Foreground="{DynamicResource {x:Static SystemColors.MenuHighlightBrushKey}}">
+            -------------------------------------------
+            <LineBreak />
+            请在游戏窗口中按下以下键盘按键
+            <LineBreak />
+            -------------------------------------------
+            <LineBreak />
+            > [PAUSE]：[开始/暂停]该窗口按键精灵
+            <LineBreak />
+            -------------------------------------------
+            <LineBreak />
+            ※ 茗伊 @ 双梦镇・中浩大帮『挽月堂』
+            <LineBreak />
+            ※ Code By 翟一鸣 Build20151029
+            <LineBreak />
+            ※ @ ZhaiYiMing.CoM
+            <LineBreak />
+            -------------------------------------------
+        </TextBlock>
+        <TextBlock Padding="40,10,10,10" TextWrapping="Wrap" Text="{Binding Status, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Bottom" Background="{DynamicResource {x:Static SystemColors.MenuHighlightBrushKey}}" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+        <Controls:ProgressRing IsActive="True" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="20" Height="20" Foreground="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Margin="8" />
     </Grid>
 </Controls:MetroWindow>

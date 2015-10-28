@@ -50,6 +50,22 @@ namespace PostMessage.NET.WPF
         public static extern short GlobalDeleteAtom(short nAtom);
 
         /// <summary>
+        /// 返回当前激活的窗口
+        /// </summary>
+        /// <returns></returns>
+        [DllImport("user32.dll", EntryPoint = "GetForegroundWindow")]
+        public static extern IntPtr GetForegroundWindow();
+
+        /// <summary>
+        /// 通过窗口句柄ID获取主窗体ID和进程PID
+        /// </summary>
+        /// <param name="hwnd">窗口句柄ID</param>
+        /// <param name="pid">输出进程PID</param>
+        /// <returns></returns>
+        [DllImport("user32", EntryPoint = "GetWindowThreadProcessId")]
+        public static extern int GetWindowThreadProcessId(IntPtr hwnd, out int pid);
+
+        /// <summary>
         /// 定义了辅助键的名称（将数字转变为字符以便于记忆，也可去除此枚举而直接使用数值）
         /// </summary>
         [Flags()]
