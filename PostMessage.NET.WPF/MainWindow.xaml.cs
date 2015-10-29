@@ -81,6 +81,16 @@ namespace PostMessage.NET.WPF
         // UI display.
         private string status = "Waiting for hotkeys...";
         public string Status { get { return status; } set { status = value; OnPropertyChanged("Status"); } }
+        private string mainBrushColor = "#FF41B1E1";
+        public string MainBrushColor { get { return mainBrushColor; } set { mainBrushColor = value; OnPropertyChanged("MainBrushColor"); } }
+        private void metroWindow_Activated(object sender, EventArgs e)
+        {
+            MainBrushColor = "#FF41B1E1";
+        }
+        private void metroWindow_Deactivated(object sender, EventArgs e)
+        {
+            MainBrushColor = "#FF808080";
+        }
 
         // Processes management.
         private Dictionary<int, Process> m_Procs = new Dictionary<int, Process> { };
@@ -112,5 +122,6 @@ namespace PostMessage.NET.WPF
         {
             ToggleProcess(pJX3, !m_Procs.ContainsKey(pJX3.Id));
         }
+
     }
 }
