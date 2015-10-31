@@ -77,7 +77,7 @@ partial class Program {
         if (bActive)
         {
             HookProc delegateHookProc = new HookProc(CBTHookProc);
-            hookCBT = SetWindowsHookEx(HookType.WH_CBT, delegateHookProc, IntPtr.Zero, AppDomain.GetCurrentThreadId());
+            hookCBT = SetWindowsHookEx(HookType.WH_CBT, delegateHookProc, IntPtr.Zero, System.Threading.Thread.CurrentThread.ManagedThreadId);
         }
         // Parse keylist
         Key[] keylist = new Key[list.Length];
