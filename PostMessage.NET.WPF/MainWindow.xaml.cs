@@ -23,18 +23,24 @@ namespace PostMessage.NET.WPF
     /// </summary>
     public partial class MainWindow : MetroWindow, INotifyPropertyChanged
     {
+        public MainWindow()
+        {
+            this.DataContext = this;
+            InitializeComponent();
+        }
+
+        // Garbage collecting.
+        ~MainWindow()
+        {
+            RemoveAllProcess();
+        }
+
         // Data binding event handle.
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName = null)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public MainWindow()
-        {
-            this.DataContext = this;
-            InitializeComponent();
         }
 
         // Hotkey binding.
@@ -51,12 +57,6 @@ namespace PostMessage.NET.WPF
                 MessageBox.Show("Register Global Hotkey Failed! Please check if your PAUSE key has been occupied by other application!", "Register Hotkey Failed!", MessageBoxButton.OK, MessageBoxImage.Error);
                 System.Environment.Exit(1);
             }
-        }
-
-        // Garbage collecting. -- Make the code below into m_Procs's dispose function will be better, but not know how to do it.
-        private void metroWindow_Closed(object sender, EventArgs e)
-        {
-            RemoveAllProcess();
         }
 
         // Catch global hotkeys.
@@ -106,38 +106,48 @@ namespace PostMessage.NET.WPF
         private Dictionary<int, Process> m_Procs = new Dictionary<int, Process> { };
         private void ToggleProcess(Process pJX3, bool bEnabled)
         {
-            if (bEnabled && !m_Procs.ContainsKey(pJX3.Id))
+            ToggleProcess(pJX3.Id, bEnabled);
+        }
+        private void ToggleProcess(int nJX3PID, bool bEnabled)
+        {
+            if (bEnabled && !m_Procs.ContainsKey(nJX3PID))
             {
                 ProcessStartInfo psi = null;
-                psi = new ProcessStartInfo("PostMessage.exe", "--active " + pJX3.Id.ToString() + " "
+                psi = new ProcessStartInfo("PostMessage.exe", "--active " + nJX3PID.ToString() + " "
                     + VK.F9.GetHashCode() + ",10,10;" + VK.F10.GetHashCode() + ",10,10;"
                     + VK.F11.GetHashCode() + ",10,10;" + VK.F12.GetHashCode() + ",10,10"
                 );
                 psi.WorkingDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
                 psi.WindowStyle = ProcessWindowStyle.Hidden;
                 Process p = Process.Start(psi);
-                m_Procs[pJX3.Id] = p;
+                m_Procs[nJX3PID] = p;
             }
-            else if (m_Procs.ContainsKey(pJX3.Id))
+            else if (m_Procs.ContainsKey(nJX3PID))
             {
-                Process p = m_Procs[pJX3.Id];
+                Process p = m_Procs[nJX3PID];
                 if (!p.HasExited)
                 {
                     p.Kill();
                 }
-                m_Procs.Remove(pJX3.Id);
+                m_Procs.Remove(nJX3PID);
             }
         }
         private void ToggleProcess(Process pJX3)
         {
-            ToggleProcess(pJX3, !m_Procs.ContainsKey(pJX3.Id));
+            ToggleProcess(pJX3.Id, !m_Procs.ContainsKey(pJX3.Id));
+        }
+        private void ToggleProcess(int nJX3PID)
+        {
+            ToggleProcess(nJX3PID, !m_Procs.ContainsKey(nJX3PID));
         }
         private void RemoveAllProcess()
         {
-            foreach (Process pJX3 in m_Procs.Values)
+            foreach (Process p in m_Procs.Values)
             {
-                ToggleProcess(pJX3, false);
+                if (!p.HasExited)
+                    p.Kill();
             }
+            m_Procs.Clear();
         }
     }
 }
