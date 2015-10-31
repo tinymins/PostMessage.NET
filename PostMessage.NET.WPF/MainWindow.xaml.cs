@@ -15,7 +15,6 @@ using MahApps.Metro.Controls;
 using System.Windows.Interop;
 using System.Diagnostics;
 using System.ComponentModel;
-using System.Diagnostics;
 
 namespace PostMessage.NET.WPF
 {
@@ -68,7 +67,7 @@ namespace PostMessage.NET.WPF
                                 if (m_Procs.Count == 0)
                                     Status = "Waiting for hotkeys...";
                                 else
-                                    Status = "Posting key serial F5-F6-F7-F8 to " + m_Procs.Count + " process(es).";
+                                    Status = "Posting key serial F9-F10-F11-F12 to " + m_Procs.Count + " process(es).";
                             }
                         }
                         handled = true;
@@ -77,7 +76,7 @@ namespace PostMessage.NET.WPF
             }
             return IntPtr.Zero;
         }
-
+        
         // UI display.
         private string status = "Waiting for hotkeys...";
         public string Status { get { return status; } set { status = value; OnPropertyChanged("Status"); } }
@@ -99,9 +98,9 @@ namespace PostMessage.NET.WPF
             if (bEnabled && !m_Procs.ContainsKey(pJX3.Id))
             {
                 ProcessStartInfo psi = null;
-                psi = new ProcessStartInfo("PostMessage.exe", pJX3.Id.ToString() + " "
-                    + VK.F5.GetHashCode() + ",10,10;" + VK.F6.GetHashCode() + ",10,10;"
-                    + VK.F7.GetHashCode() + ",10,10;" + VK.F8.GetHashCode() + ",10,10"
+                psi = new ProcessStartInfo("PostMessage.exe", "--active " + pJX3.Id.ToString() + " "
+                    + VK.F9.GetHashCode() + ",10,10;" + VK.F10.GetHashCode() + ",10,10;"
+                    + VK.F11.GetHashCode() + ",10,10;" + VK.F12.GetHashCode() + ",10,10"
                 );
                 psi.WorkingDirectory = System.AppDomain.CurrentDomain.BaseDirectory;
                 psi.WindowStyle = ProcessWindowStyle.Hidden;
