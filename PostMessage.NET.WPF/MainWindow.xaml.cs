@@ -46,7 +46,11 @@ namespace PostMessage.NET.WPF
             hWndSource = HwndSource.FromHwnd(wih.Handle);
             hWndSource.AddHook(WndProc);
             hotkeyPause = HotKey.GlobalAddAtom("PAUSE");
-            HotKey.RegisterHotKey(wih.Handle, hotkeyPause, HotKey.KeyModifiers.None, (int)VK.PAUSE);
+            if (!HotKey.RegisterHotKey(wih.Handle, hotkeyPause, HotKey.KeyModifiers.None, (int)VK.PAUSE))
+            {
+                MessageBox.Show("Register Global Hotkey Failed! Please check if your PAUSE key has been occupied by other application!", "Register Hotkey Failed!", MessageBoxButton.OK, MessageBoxImage.Error);
+                System.Environment.Exit(1);
+            }
         }
 
         // Garbage collecting. -- Make the code below into m_Procs's dispose function will be better, but not know how to do it.
