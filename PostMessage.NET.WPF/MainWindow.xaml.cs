@@ -49,6 +49,13 @@ namespace PostMessage.NET.WPF
             HotKey.RegisterHotKey(wih.Handle, hotkeyPause, HotKey.KeyModifiers.None, (int)VK.PAUSE);
         }
 
+        // Garbage collecting. -- Make the code below into m_Procs's dispose function will be better, but not know how to do it.
+        private void metroWindow_Closed(object sender, EventArgs e)
+        {
+            RemoveAllProcess();
+        }
+
+        // Catch global hotkeys.
         private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             switch (msg)
@@ -121,6 +128,12 @@ namespace PostMessage.NET.WPF
         {
             ToggleProcess(pJX3, !m_Procs.ContainsKey(pJX3.Id));
         }
-
+        private void RemoveAllProcess()
+        {
+            foreach (Process pJX3 in m_Procs.Values)
+            {
+                ToggleProcess(pJX3, false);
+            }
+        }
     }
 }
