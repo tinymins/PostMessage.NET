@@ -5,11 +5,25 @@ using System.Diagnostics;
 
 namespace PostMessage.NET {
 partial class Program {
-    struct Key {
+    struct Key
+    {
         public uint nKCode;
         public int nPress;
         public int nDelay;
     }
+    private static IntPtr hookCBT;
+    private static bool focusWindowChanged = false;
+    public delegate int HookProc(int nCode, IntPtr wParam, IntPtr lParam);
+    [System.Runtime.InteropServices.DllImport("user32.dll")]
+    public static extern IntPtr SetWindowsHookEx(HookType idHook, HookProc lpfn, IntPtr hInstance, int threadId);
+    [System.Runtime.InteropServices.DllImport("user32.dll")]
+    public static extern int CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
+    private static int CBTHookProc(int nCode, IntPtr wParam, IntPtr lParam)
+    {
+        focusWindowChanged = true;
+        return CallNextHookEx(hookCBT, nCode, wParam, lParam);
+    }
+
     static void Main(string[] args) {
         // args = new string[] { "31212", "54,2000,2000" };
         // args = new string[] { "--help" };
@@ -60,6 +74,11 @@ partial class Program {
             Console.WriteLine("Command --help to view more information.");
             return;
         }
+        if (bActive)
+        {
+            HookProc delegateHookProc = new HookProc(CBTHookProc);
+            hookCBT = SetWindowsHookEx(HookType.WH_CBT, delegateHookProc, IntPtr.Zero, AppDomain.GetCurrentThreadId());
+        }
         // Parse keylist
         Key[] keylist = new Key[list.Length];
         for (int i = 0; i < list.Length; i++) {
@@ -80,8 +99,11 @@ partial class Program {
             IntPtr h = p.MainWindowHandle;
             while (true) {
                 foreach (Key key in keylist) {
-                    if (bActive)
+                    if (bActive && focusWindowChanged)
+                    {
+                        focusWindowChanged = false;
                         PostMessage(h, WM_ACTIVATEAPP, 1, 0);
+                    }
                     PostMessage(h, WM_KEYDOWN, key.nKCode, 0);
                     if (bEcho)
                         Console.WriteLine("Process \"" + p.ProcessName + "\" post message KEYDOWN with key code " + key.nKCode + ".");
