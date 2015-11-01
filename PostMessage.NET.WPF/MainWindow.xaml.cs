@@ -25,6 +25,7 @@ namespace PostMessage.NET.WPF
     {
         public MainWindow()
         {
+            aw = new AnnounceWindow();
             this.DataContext = this;
             InitializeComponent();
         }
@@ -57,6 +58,13 @@ namespace PostMessage.NET.WPF
                 MessageBox.Show("Register Global Hotkey Failed! Please check if your PAUSE key has been occupied by other application!", "Register Hotkey Failed!", MessageBoxButton.OK, MessageBoxImage.Error);
                 System.Environment.Exit(1);
             }
+        }
+
+        private AnnounceWindow aw;
+        private void metroWindow_Closing(object sender, CancelEventArgs e)
+        {
+            if (aw != null)
+                aw.Close();
         }
 
         // Catch global hotkeys.
@@ -121,6 +129,7 @@ namespace PostMessage.NET.WPF
                 psi.WindowStyle = ProcessWindowStyle.Hidden;
                 Process p = Process.Start(psi);
                 m_Procs[nJX3PID] = p;
+                aw.OutputMessage("MSG_ANNOUNCE_YELLOW", "按键开始(PID" + nJX3PID + ")");
             }
             else if (m_Procs.ContainsKey(nJX3PID))
             {
@@ -130,6 +139,7 @@ namespace PostMessage.NET.WPF
                     p.Kill();
                 }
                 m_Procs.Remove(nJX3PID);
+                aw.OutputMessage("MSG_ANNOUNCE_RED", "按键终止(PID" + nJX3PID + ")");
             }
         }
         private void ToggleProcess(Process pJX3)

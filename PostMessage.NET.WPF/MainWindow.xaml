@@ -4,7 +4,7 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:System="clr-namespace:System;assembly=mscorlib" x:Name="metroWindow" x:Class="PostMessage.NET.WPF.MainWindow"
         BorderThickness="0" GlowBrush="Black" ResizeMode="CanResizeWithGrip"
-        Title="JX3 Auto Keypress" Height="300" Width="310" Loaded="MetroWindow_Loaded" WindowStartupLocation="CenterScreen" MinWidth="310" MinHeight="300" Activated="metroWindow_Activated" Deactivated="metroWindow_Deactivated">
+        Title="JX3 Auto Keypress" Height="300" Width="310" Loaded="MetroWindow_Loaded" WindowStartupLocation="CenterScreen" MinWidth="310" MinHeight="300" Activated="metroWindow_Activated" Deactivated="metroWindow_Deactivated" Closing="metroWindow_Closing">
     <Grid>
         <TextBlock Margin="20" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" FontFamily="Microsoft YaHei UI" LineHeight="22" Foreground="{Binding MainBrushColor, UpdateSourceTrigger=PropertyChanged}">
             -------------------------------------------
