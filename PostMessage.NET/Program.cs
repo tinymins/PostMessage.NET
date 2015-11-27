@@ -11,8 +11,6 @@ partial class Program {
         public int nPress;
         public int nDelay;
     }
-    private static IntPtr hookCBT;
-    private static bool focusWindowChanged = false;
     public delegate int HookProc(int nCode, IntPtr wParam, IntPtr lParam);
     [System.Runtime.InteropServices.DllImport("user32.dll")]
     public static extern IntPtr SetWindowsHookEx(HookType idHook, HookProc lpfn, IntPtr hInstance, int threadId);
