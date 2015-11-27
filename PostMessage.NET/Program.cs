@@ -12,8 +12,6 @@ partial class Program {
         public int nDelay;
     }
     public delegate int HookProc(int nCode, IntPtr wParam, IntPtr lParam);
-    [System.Runtime.InteropServices.DllImport("user32.dll")]
-    public static extern IntPtr SetWindowsHookEx(HookType idHook, HookProc lpfn, IntPtr hInstance, int threadId);
     [System.Runtime.InteropServices.DllImport("user32.dll", EntryPoint = "GetForegroundWindow")]
     private static extern IntPtr GetForegroundWindow();
 
