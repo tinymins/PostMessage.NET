@@ -16,15 +16,11 @@ partial class Program {
     public delegate int HookProc(int nCode, IntPtr wParam, IntPtr lParam);
     [System.Runtime.InteropServices.DllImport("user32.dll")]
     public static extern IntPtr SetWindowsHookEx(HookType idHook, HookProc lpfn, IntPtr hInstance, int threadId);
-    [System.Runtime.InteropServices.DllImport("user32.dll")]
-    public static extern int CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
-    private static int CBTHookProc(int nCode, IntPtr wParam, IntPtr lParam)
-    {
-        focusWindowChanged = true;
-        return CallNextHookEx(hookCBT, nCode, wParam, lParam);
-    }
+    [System.Runtime.InteropServices.DllImport("user32.dll", EntryPoint = "GetForegroundWindow")]
+    private static extern IntPtr GetForegroundWindow();
 
     static void Main(string[] args) {
+        // args = new string[] { "121680", "54,200,200", "--active" };
         // args = new string[] { "31212", "54,2000,2000" };
         // args = new string[] { "--help" };
         bool bEcho = false;
@@ -74,11 +70,6 @@ partial class Program {
             Console.WriteLine("Command --help to view more information.");
             return;
         }
-        if (bActive)
-        {
-            HookProc delegateHookProc = new HookProc(CBTHookProc);
-            hookCBT = SetWindowsHookEx(HookType.WH_CBT, delegateHookProc, IntPtr.Zero, System.Threading.Thread.CurrentThread.ManagedThreadId);
-        }
         // Parse keylist
         Key[] keylist = new Key[list.Length];
         for (int i = 0; i < list.Length; i++) {
@@ -93,16 +84,21 @@ partial class Program {
             keylist[i].nPress = int.Parse(line[1]);
             keylist[i].nDelay = int.Parse(line[2]);
         }
+        IntPtr hForeWndLast = IntPtr.Zero;
         // Try to post message
         try {
             Process p = Process.GetProcessById(nProcessId);
             IntPtr h = p.MainWindowHandle;
             while (true) {
                 foreach (Key key in keylist) {
-                    if (bActive && focusWindowChanged)
+                    if (bActive)
                     {
-                        focusWindowChanged = false;
-                        PostMessage(h, WM_ACTIVATEAPP, 1, 0);
+                        IntPtr hForeWnd = GetForegroundWindow();
+                        if (hForeWnd != hForeWndLast)
+                        {
+                            hForeWndLast = hForeWnd;
+                            PostMessage(h, WM_ACTIVATEAPP, 1, 0);
+                        }
                     }
                     PostMessage(h, WM_KEYDOWN, key.nKCode, 0);
                     if (bEcho)
