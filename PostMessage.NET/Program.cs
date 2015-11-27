@@ -64,7 +64,7 @@ partial class Program {
                 default:
                     nProcessId = int.Parse(args[i]);
                     list = args[i + 1].Split(';');
-                    i = i + 2;
+                    i = i + 1;
                     break;
             }
         }
