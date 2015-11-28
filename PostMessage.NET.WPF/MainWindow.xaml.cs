@@ -68,17 +68,22 @@ namespace PostMessage.NET.WPF
         }
 
         // Catch global hotkeys.
+        const uint WM_KEYDOWN = 0x100;
+        const uint WM_KEYUP = 0x101;
+        [System.Runtime.InteropServices.DllImport("user32.dll", EntryPoint = "PostMessage", CallingConvention = System.Runtime.InteropServices.CallingConvention.Winapi)]
+        public static extern bool PostMessage(IntPtr hwnd, uint msg, uint wParam, uint lParam);
         private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             switch (msg)
             {
                 case HotKey.WM_HOTKEY:
                     {
+                        IntPtr hForeWnd = HotKey.GetForegroundWindow();
                         int sid = wParam.ToInt32();
                         if (sid == hotkeyPause)
                         {
                             int pid;
-                            HotKey.GetWindowThreadProcessId(HotKey.GetForegroundWindow(), out pid);
+                            HotKey.GetWindowThreadProcessId(hForeWnd, out pid);
                             Process p = Process.GetProcessById(pid);
                             if (p != null && p.ProcessName == "JX3Client" || p.ProcessName == "JX3ClientX64")
                             {
@@ -89,6 +94,8 @@ namespace PostMessage.NET.WPF
                                     Status = "Posting key serial F9-F10-F11-F12 to " + m_Procs.Count + " process(es).";
                             }
                         }
+                        PostMessage(hForeWnd, WM_KEYDOWN, (uint)VK.PAUSE, 0);
+                        PostMessage(hForeWnd, WM_KEYUP, (uint)VK.PAUSE, 0);
                         handled = true;
                         break;
                     }
