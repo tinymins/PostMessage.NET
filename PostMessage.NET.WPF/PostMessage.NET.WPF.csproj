@@ -68,24 +68,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="AnnounceWindow.xaml">
+    <Page Include="Views\AnnounceWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="AnnounceWindow.xaml.cs">
+    <Compile Include="Views\AnnounceWindow.xaml.cs">
       <DependentUpon>AnnounceWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Enum.cs" />
-    <Compile Include="HotKey.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Utils\Enum.cs" />
+    <Compile Include="Utils\HotKey.cs" />
+    <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
