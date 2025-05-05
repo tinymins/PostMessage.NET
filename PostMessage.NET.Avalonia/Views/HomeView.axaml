@@ -1,0 +1,60 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="PostMessage.NET.Avalonia.Views.HomeView">
+
+
+	<Grid RowDefinitions="Auto,*,Auto">
+		<!-- 上部分：热键选择 -->
+		<StackPanel Grid.Row="0" Margin="10">
+			<!--<dialogHost:DialogHost Identifier="MainDialogHost" CloseOnClickAway="True">
+		  <dialogHost:DialogHost.DialogContent>
+			  -->
+			<!-- put your dialog content here-->
+			<!--
+		  </dialogHost:DialogHost.DialogContent>
+		  -->
+			<!-- put the content over which the dialog is shown here (e.g. your main window grid)-->
+			<!--
+		  <Button Content="Open Dialog" Click="OpenDialogWithView" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+	  </dialogHost:DialogHost>-->
+
+			<Button Content="Open Dialog" Click="OpenDialogWithView" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+			<TextBlock Text="热键设置" FontWeight="Bold" Margin="0,0,0,5"/>
+			<ComboBox Name="HotKeyComboBox"
+					  ItemsSource="{Binding HotKeyOptions}"
+					  SelectedItem="{Binding SelectedHotKey}"
+					  HorizontalAlignment="Stretch"/>
+		</StackPanel>
+
+		<!-- 中部分：按键序列列表 -->
+		<Grid Grid.Row="1" Margin="10,0,10,0">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+
+			<Border BorderBrush="Gray" BorderThickness="1" Padding="1">
+				<ScrollViewer>
+					<ListBox Name="KeyConfigsListBox"
+							 ItemsSource="{Binding KeyConfigs}"
+							 SelectedItem="{Binding SelectedKeyConfig}">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Binding Name}"/>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+				</ScrollViewer>
+			</Border>
+		</Grid>
+
+		<!-- 下部分：按钮操作区 -->
+		<StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+			<Button Content="新增" Command="{Binding AddKeyConfigCommand}" Margin="5"/>
+			<Button Content="编辑" Command="{Binding EditKeyConfigCommand}" Margin="5"/>
+			<Button Content="删除" Command="{Binding DeleteKeyConfigCommand}" Margin="5"/>
+		</StackPanel>
+	</Grid>
+</UserControl>

@@ -1,0 +1,75 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:PostMessage.NET.Avalonia.ViewModels"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="450"
+        Width="400" Height="450"
+        x:Class="PostMessage.NET.Avalonia.Views.KeyConfigEditorView"
+        Title="按键配置编辑器">
+  
+  <Grid Margin="10" RowDefinitions="Auto,*,Auto">
+    <!-- 配置名称 -->
+    <StackPanel Grid.Row="0" Margin="0,0,0,10">
+      <TextBlock Text="配置名称:" Margin="0,0,0,5"/>
+      <TextBox Text="{Binding ConfigName}" Margin="0,0,0,10"/>
+    </StackPanel>
+    
+    <!-- 按键序列列表 -->
+    <Grid Grid.Row="1">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="Auto"/>
+      </Grid.RowDefinitions>
+      
+      <TextBlock Grid.Row="0" Text="按键序列:" Margin="0,0,0,5"/>
+      
+      <ScrollViewer Grid.Row="1">
+        <ItemsControl ItemsSource="{Binding KeySequence}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <Border BorderBrush="LightGray" BorderThickness="1" Margin="0,0,0,5" Padding="5">
+                <Grid ColumnDefinitions="*,*,*,Auto">
+                  <StackPanel Grid.Column="0" Margin="0,0,5,0">
+                    <TextBlock Text="按键:" Margin="0,0,0,5"/>
+                    <ComboBox ItemsSource="{Binding KeyOptions}" 
+                              SelectedItem="{Binding SelectedKey}"
+                              HorizontalAlignment="Stretch"/>
+                  </StackPanel>
+                  
+                  <StackPanel Grid.Column="1" Margin="0,0,5,0">
+                    <TextBlock Text="按下时间(ms):" Margin="0,0,0,5"/>
+                    <NumericUpDown Value="{Binding PressTime}" 
+                                  Minimum="1" Maximum="10000"/>
+                  </StackPanel>
+                  
+                  <StackPanel Grid.Column="2" Margin="0,0,5,0">
+                    <TextBlock Text="延迟时间(ms):" Margin="0,0,0,5"/>
+                    <NumericUpDown Value="{Binding DelayTime}" 
+                                  Minimum="0" Maximum="10000"/>
+                  </StackPanel>
+                  
+                  <Button Grid.Column="3" Content="删除" 
+                          Command="{Binding $parent[ItemsControl].DataContext.RemoveKeyPressCommand}" 
+                          CommandParameter="{Binding}"
+                          VerticalAlignment="Bottom"/>
+                </Grid>
+              </Border>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </ScrollViewer>
+      
+      <Button Grid.Row="2" Content="添加按键" 
+              Command="{Binding AddKeyPressCommand}"
+              HorizontalAlignment="Left" Margin="0,5,0,0"/>
+    </Grid>
+    
+    <!-- 底部按钮 -->
+    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+      <Button Content="保存" Command="{Binding SaveCommand}" Margin="0,0,10,0"/>
+      <Button Content="取消" Command="{Binding CancelCommand}"/>
+    </StackPanel>
+  </Grid>
+</Window>
