@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197 d17.13
+VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostMessage.NET", "PostMessage.NET\PostMessage.NET.csproj", "{A1E569CA-DDDF-49AD-82F8-B8F30BF139AF}"
 EndProject
@@ -16,8 +16,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostMessage.NET.WPF", "Post
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostMessage.NET.Avalonia", "PostMessage.NET.Avalonia\PostMessage.NET.Avalonia.csproj", "{33BD6B32-372D-32E3-E4B9-012DDAF542C2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostMessage.NET.Avalonia.Desktop", "PostMessage.NET.Avalonia.Desktop\PostMessage.NET.Avalonia.Desktop.csproj", "{C4904C1C-BF41-2542-9CB7-098737FB3180}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +39,6 @@ Global
 		{33BD6B32-372D-32E3-E4B9-012DDAF542C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33BD6B32-372D-32E3-E4B9-012DDAF542C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33BD6B32-372D-32E3-E4B9-012DDAF542C2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C4904C1C-BF41-2542-9CB7-098737FB3180}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C4904C1C-BF41-2542-9CB7-098737FB3180}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C4904C1C-BF41-2542-9CB7-098737FB3180}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C4904C1C-BF41-2542-9CB7-098737FB3180}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
